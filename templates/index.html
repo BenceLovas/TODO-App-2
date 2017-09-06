@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+    <link rel="stylesheet" href="../static/stylesheet/style.css" type="text/css">
+</head>
+<body>
+
+    <aside>
+        <div class="form">
+            <form action="{{ url_for('save_todo') }}" method="post">
+                <label for="title">Title</label>
+                <input name="title" type="text" minlength="1" required>
+                <br>
+                <label for="message">Furthermore</label>
+                <textarea name="message" cols="30" rows="10"></textarea>
+                <br>
+                <label for="type">Type</label>
+                <select name="type">
+                {% for type in types_list %}
+                    <option>{{ type }}</option>
+                {% endfor %}
+                </select>
+                <br>
+                <label for="deadline_year">Year</label>
+                <input name="deadline_year" type="number" min="2017" max="2100" value="{{ date.year }}">
+                <label for="deadline_month">Month</label>
+                <input name="deadline_month" type="number" min="1" max="12" value="{{ date.month }}">
+                <label for="deadline_day">Day</label>
+                <input name="deadline_day" type="number" min="1" max="31" value="{{ date.day }}">
+                <label for="deadline_hour">Hour</label>
+                <input name="deadline_hour" type="number" min="0" max="23" value="{{ date.hour }}">
+                <label for="deadline_minute">Minute</label>
+                <input name="deadline_minute" type="number" min="0" max="59" value="{{ date.minute }}">
+                <input type="submit" value="ADD TODO">
+            </form>
+            <form action="{{ url_for('add_type') }}" method="post">
+                <label for="new_type">Add new type</label>
+                <input name="new_type" type="text" maxlength="20">
+                <input type="submit" value="ADD TYPE">
+            </form>
+            {% for i in total_by_type %}
+                <h4>{{ i['type'] }}: {{ i['total'] }}</h4>
+            {% endfor %}  
+        </div>
+    </aside>
+
+    <div class="main">
+        {% for todo in todos %}
+        <div class="todo">
+            <header>
+                <h2>{{ todo['title'] }}</h2>
+            </header>
+            <p>{{ todo['message'] }}</p>
+            <p>{{ todo['creation_time'] }}</p>
+            <p>{{ todo['deadline'] }}</p>
+            <p>{{ todo['type'] }}</p>
+            <p>{{ todo['time_left'] }}</p>
+            <a href="{{ url_for('delete_todo', todo_id = todo['id']) }}">X</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
