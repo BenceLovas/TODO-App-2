@@ -48,5 +48,20 @@ def delete_todo(todo_id):
     database_manager.query_modify(queries.DELETE_TODO, (todo_id, ))
     return redirect(url_for('index'))
 
+
+@app.route('/type/<type_id>/delete')
+def delete_type(type_id):
+    print("type_id in delete: ", type_id)
+    x = database_manager.query_select(queries.SELECT_TODO_BASED_ON_TYPE, (type_id, ))
+
+    todo_id_list = []
+    for i in x:
+        todo_id_list.append(i['todo_id'])
+
+    database_manager.query_modify(queries.DELETE_TYPE, (type_id, ))
+    database_manager.query_modify(queries.DELETE_TODO_BASED_ON_TYPE, (todo_id_list, ))
+
+    return redirect(url_for('index'))
+
 if __name__ == "__main__":
     app.run(debug=True)
