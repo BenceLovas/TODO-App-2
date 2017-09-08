@@ -3,29 +3,122 @@
     padding: 0;
 }
 
-aside {
+:root {
+    --color-dark-grey: #211E1E;
+    --color-toxic-green: #00FF79;
+    --color-deep-orange: #FF0A00;
+}
+
+body {
+    background-color: var(--color-dark-grey);
+    font-size: 20px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+aside.left {
     width: 300px;
     position: absolute;
     top: 0;
     left: 0;
+    background-color: var(--color-dark-grey);
+    color: white;
+    padding: 30px;
+    text-transform: uppercase;
 }
 
-.form label,
-.form input {
+aside.right {
+    width: 300px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--color-dark-grey);
+    color: white;
+    padding: 30px;
+    text-transform: uppercase;
+}
+
+.add-todo-form label,
+.add-todo-form input,
+.add-type-form label,
+.add-type-form input {
     display: block;
+}
+
+input[type=text]:focus,
+.add-todo-form textarea:focus {
+    width: 200px;
 }
 
 textarea {
     resize: none;
+    height: 100px;
+}
+
+.add-todo-form select {
+    background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #FBFBFB 0%, #E9E9E9 100%);
+    background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FBFBFB), color-stop(100%,#E9E9E9));
+    appearance: none;
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    width: 170px;
+    height: 30px;
 }
 
 .main {
-    margin-left: 300px;
+    margin-left: 360px;
+    margin-right: 360px;
 }
 
 .todo {
-    background-color: black;
+    background: var(--color-deep-orange);
     color: white;
     margin-top: 10px;
     padding: 10px;
+    height: 160px;
+    overflow: hidden;
+}
+
+.add-type-form {
+    margin-top: 30px;   
+}
+
+.todo {
+    height: 160px;
+}
+
+button {
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#type-count-number {
+    background-color: var(--color-toxic-green);
+    padding: 5px;
+    border-radius: 5px;
+    color: black;
+    margin-left: 5px;
+}
+
+.type-count-item * {
+    display: inline;
+}
+
+.type-count a,
+.todo a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+}
+
+.button-red {
+    background-color: var(--color-deep-orange);
+    border: none;   
+}
+
+.button-green {
+    background-color: var(--color-toxic-green);
+    border: none;
 }

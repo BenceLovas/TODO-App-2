@@ -7,42 +7,46 @@
 </head>
 <body>
 
-    <aside>
-        <div class="form">
+    <aside class="left">
+        <div class="add-todo-form">
             <form action="{{ url_for('save_todo') }}" method="post">
                 <label for="title">Title</label>
                 <input name="title" type="text" minlength="1" required>
-                <br>
-                <label for="message">Furthermore</label>
-                <textarea name="message" cols="30" rows="10"></textarea>
-                <br>
+                <label for="message">Details</label>
+                <textarea name="message"></textarea>
                 <label for="type">Type</label>
                 <select name="type">
                 {% for type in types_list %}
                     <option>{{ type }}</option>
                 {% endfor %}
                 </select>
-                <br>
-                <label for="deadline_year">Year</label>
-                <input name="deadline_year" type="number" min="2017" max="2100" value="{{ date.year }}">
-                <label for="deadline_month">Month</label>
-                <input name="deadline_month" type="number" min="1" max="12" value="{{ date.month }}">
-                <label for="deadline_day">Day</label>
-                <input name="deadline_day" type="number" min="1" max="31" value="{{ date.day }}">
-                <label for="deadline_hour">Hour</label>
-                <input name="deadline_hour" type="number" min="0" max="23" value="{{ date.hour }}">
-                <label for="deadline_minute">Minute</label>
-                <input name="deadline_minute" type="number" min="0" max="59" value="{{ date.minute }}">
-                <input type="submit" value="ADD TODO">
+                <fieldset>
+                    <legend>Deadline</legend>
+                    Year <input name="deadline_year" type="number" min="2017" max="2100" value="{{ date.year }}">
+                    Month<input name="deadline_month" type="number" min="1" max="12" value="{{ date.month }}">
+                    Day <input name="deadline_day" type="number" min="1" max="31" value="{{ date.day }}">
+                    Hour <input name="deadline_hour" type="number" min="0" max="23" value="{{ date.hour }}">
+                    Minute <input name="deadline_minute" type="number" min="0" max="59" value="{{ date.minute }}">
+                </fieldset>
+            
+                <button class="button-green" type="submit">Add TODO</button>
             </form>
+        </div>
+    </aside>
+    <aside class="right">
+        <div class="add-type-form">
             <form action="{{ url_for('add_type') }}" method="post">
                 <label for="new_type">Add new type</label>
                 <input name="new_type" type="text" maxlength="20">
-                <input type="submit" value="ADD TYPE">
+                <button class="button-green" type="submit">Add TYPE</button>
             </form>
+        </div>
+        <div class="type-count">
             {% for i in total_by_type %}
-                <h4>{{ i['type'] }}: {{ i['total'] }}</h4>
-                <a href="{{ url_for('delete_type', type_id = i['id']) }}" class="confirmation">X</a>
+            <div class="type-count-item">
+                <h4>{{ i['type'] }}</h4><h4><span id="type-count-number">{{ i['total'] }}</span></h4>
+                <button class="button-red"><a href="{{ url_for('delete_type', type_id = i['id']) }}" class="confirmation">delete</a></button>
+            </div>
             {% endfor %}  
         </div>
     </aside>
@@ -58,7 +62,7 @@
             <p>{{ todo['deadline'] }}</p>
             <p>{{ todo['type'] }}</p>
             <p>{{ todo['time_left'] }}</p>
-            <a href="{{ url_for('delete_todo', todo_id = todo['id']) }}">X</a>
+            <button class="button-green"><a href="{{ url_for('delete_todo', todo_id = todo['id']) }}">done</a></button>
         </div>
         {% endfor %}
     </div>
