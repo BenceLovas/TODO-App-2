@@ -28,11 +28,11 @@
                     Hour <input name="deadline_hour" type="number" min="0" max="23" value="{{ date.hour }}">
                     Minute <input name="deadline_minute" type="number" min="0" max="59" value="{{ date.minute }}">
                 </fieldset>
-            
                 <button class="button-green" type="submit">Add TODO</button>
             </form>
         </div>
     </aside>
+
     <aside class="right">
         <div class="add-type-form">
             <form action="{{ url_for('add_type') }}" method="post">
