@@ -58,8 +58,8 @@
                 <h2>{{ todo['title'] }}</h2>
             </header>
             <p>{{ todo['message'] }}</p>
-            <p>{{ todo['creation_time'] }}</p>
-            <p>{{ todo['deadline'] }}</p>
+            <p>Posted on: {{ todo['creation_time'] }}</p>
+            <p>Deadline: {{ todo['deadline'] }}</p>
             <p>{{ todo['type'] }}</p>
             <p>{{ todo['time_left'] }}</p>
             <button class="button-green"><a href="{{ url_for('delete_todo', todo_id = todo['id']) }}">done</a></button>

@@ -17,42 +17,9 @@ def index():
     types_list = common.values_from_list_of_dictionaries(types, 'type')
     total_by_type = database_manager.query_select(queries.GROUP_BY_TYPES)
     todos = database_manager.query_select(queries.SELECT_TODO)
-    for i in todos:
-        time_left = i['deadline'] - datetime.datetime.now()
-        print("time_left", time_left)
-        s = time_left.total_seconds()
-        print("s", s)
-        hours, remainder = divmod(s, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        if s < 0:
-            i['time_left'] = "overdue"
-        elif time_left.days > 0:
-            if time_left.days == 1:
-                i['time_left'] = "{} day left".format(time_left.days)
-            else:
-                i['time_left'] = "{} days left".format(time_left.days)
-        elif hours > 0:
-            if hours == 1:
-                i['time_left'] = "{} hour left".format(int(hours))
-            else:
-                i['time_left'] = "{} hours left".format(int(hours))
-        elif minutes > 0:
-            if minutes == 1:
-                i['time_left'] = "{} minute left".format(int(minutes))
-            else:
-                i['time_left'] = "{} minutes left".format(int(minutes))
-        elif seconds > 0:
-            if seconds == 1:
-                i['time_left'] = "{} second left".format(int(second))
-            else:
-                i['time_left'] = "{} seconds left".format(int(seconds))
-        
-        
-        # print("time left", i['time_left'])
-        # print("type", type(i['time_left']))
-        # print("days", i['time_left'].days)
-    for i in todos:
-        i['creation_time'] = i['creation_time'].strftime('%Y  /  %b / %-d - %H:%M')
+    todos = common.remaining_time(todos)
+    todos = common.format_time(todos)
+
     return render_template('index.html', date=date, types_list=types_list, total_by_type=total_by_type, todos=todos)
 
 
